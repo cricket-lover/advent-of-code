@@ -2,3 +2,4 @@ node_modules/
 input.txt
 practice.js
 .DS_Store
+.vscode/
