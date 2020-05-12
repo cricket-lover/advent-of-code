@@ -6,16 +6,10 @@ class Computer {
     this.output = [];
   }
   getInstruction() {
-    const oldInstruction = `00000${this.data[this.pointer]}`;
-    const oldInstruction_length = oldInstruction.length;
-    const instruction = oldInstruction.slice(oldInstruction_length - 5);
-    const instruction_length = instruction.length;
-    const opcode = +instruction.slice(
-      instruction_length - 2,
-      instruction_length
-    );
-    const mode1 = +instruction[instruction_length - 3];
-    const mode2 = +instruction[instruction_length - 4];
+    const instruction = `${this.data[this.pointer]}`.padStart(5, 0);
+    const opcode = instruction.substr(-2);
+    const mode1 = +instruction[2];
+    const mode2 = +instruction[1];
     return { opcode, mode1, mode2 };
   }
   getParams(mode1, mode2) {
