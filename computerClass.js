@@ -5,6 +5,7 @@ class Computer {
     this.pointer = 0;
     this.output = [];
     this.isHalted = false;
+    this.isFirstTime = true;
   }
   getInstruction() {
     const instruction = `${this.data[this.pointer]}`.padStart(5, 0);
@@ -25,7 +26,6 @@ class Computer {
     return { first, second };
   }
   run(secondInput) {
-    let isFirstTime = true;
     while (this.pointer < this.data.length) {
       const { opcode, mode1, mode2 } = this.getInstruction();
       const { first, second } = this.getParams(mode1, mode2);
@@ -38,9 +38,9 @@ class Computer {
         this.pointer += 4;
       }
       if (opcode == '03') {
-        const value = isFirstTime ? this.inputValue : secondInput;
+        const value = this.isFirstTime ? this.inputValue : secondInput;
         this.data[this.data[this.pointer + 1]] = value;
-        isFirstTime = false;
+        this.isFirstTime = false;
         this.pointer += 2;
       }
       if (opcode == '04') {
